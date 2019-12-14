@@ -1,3 +1,9 @@
-import React from 'react'
+import React from 'react';
 
-export const PostTitle = ({ title }) => <h1>{title}</h1>
+import './index.scss';
+
+export const PostTitle = ({ title, date }) => (
+  <h1 className="post-title">
+    {title} <span className="post-date">{date}</span>
+  </h1>
+);
