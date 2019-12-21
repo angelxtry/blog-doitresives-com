@@ -6,10 +6,6 @@ lang: 'en'
 
 # Suho Lee
 
-<div align="center">
-
 만드는게 재밌다.
 
-이전 블로그: <a href="https://angelxtry.github.io/">angelxtry.githtb.io</a>
-
-</div>
+이전 블로그: [angelxtry.githtb.io](https://angelxtry.github.io/)
