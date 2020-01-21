@@ -4,6 +4,8 @@ date: 2020-01-17 02:01:54
 category: development
 ---
 
+(2020-01-20 Follow, User entity 수정)
+
 TypeORM Boilerplate와 GraphQL Boilerplate를 하나로 합쳤다.
 
 TypeORM Boilerplate를 base로 하고 GraphQL에 필요한 package를 설치한다.
@@ -79,11 +81,21 @@ export class User {
     () => Follow,
     follow => follow.following
   )
-  follows: Follow[];
+  following: Follow[];
+
+  @OneToMany(
+    () => Follow,
+    follow => follow.follower
+  )
+  followers: Follow[];
 }
 ```
 
-User entity에 follows를 추가하여 follow entity와 연결한다.
+User entity에 following, follwers를 추가하여 follow entity와 연결한다.
+
+following은 내가 follow 한 유저들을 의미한다. follow 테이블에서 follower가 나(me)인 데이터를 선택하면 된다.
+
+followers는 나를 follow 한 유저들을 의미한다. follow 테이블에서 following이 나(me)인 데이터를 선택하면 된다.
 
 ### Follow entity
 
@@ -105,11 +117,14 @@ export class Follow {
 
   @ManyToOne(
     () => User,
-    user => user.follows
+    user => user.following
   )
   following: User;
 
-  @ManyToOne(() => User)
+  @ManyToOne(
+    () => User,
+    user => user.followers
+  )
   follower: User;
 
   @Column({ type: Boolean, default: false })
@@ -123,7 +138,7 @@ export class Follow {
 }
 ```
 
-following은 User entity와 ManyToOne으로 연결된다. follower도 User type이다. 이 컬럼은 following과는 달리 User entity에 mapping되는 컬럼이 없다.
+following, follower는 User entity와 ManyToOne으로 연결된다.
 
 A, B, C 라는 유저가 있고 A가 C를 following하고, B도 C를 following 한다고 해보자. Follow entity에는 다음과 같이 저장된다.
 
