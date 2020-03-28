@@ -58,8 +58,7 @@ package.json의 script를 다음과 같이 변경했다.
   "prebuild": "rm -rf dist",
   "build": "tsc",
   "postbuild": "cd src && copy ./api/**/*.graphql ../dist/api",
-  "dev": "NODE_ENV=development yarn build && node dist/index.js",
-  "start": "NODE_ENV=production yarn build && node dist/index.js",
+  "start": "yarn build && NODE_ENV=production node dist/index.js",
   "watch": "NODE_ENV=development nodemon --exec ts-node -r tsconfig-paths/register --files src/index.ts -e ts,graphql",
   "codegen": "graphql-codegen --config ./codegen.yml"
 },
@@ -101,3 +100,36 @@ info Number of shared dependencies: 4
 개발 시점에 재컴파일 되는 과정이 단순해져서 마음에 든다.
 
 [타입스크립트에서 절대경로 쓰기](https://libsora.so/posts/use-absolute-path-in-typescript/)를 읽다보니 jest도 언급되던데 조만간 적용하게 될 것 같다.
+
+## 오류수정
+
+```json
+"scripts": {
+  "prebuild": "rm -rf dist",
+  "build": "tsc",
+  "postbuild": "cd src && copy ./api/**/*.graphql ../dist/api",
+  "start": "NODE_ENV=production yarn build && node dist/index.js",
+  "watch": "NODE_ENV=development nodemon --exec ts-node -r tsconfig-paths/register --files src/index.ts -e ts,graphql",
+  "codegen": "graphql-codegen --config ./codegen.yml"
+},
+```
+
+start와 watch가 모두 잘 동작한다고 생각하고 있었는데 아니었다.
+
+module-alias 설정 중에 package.json 파일에 다음과 같은 내용을 추가하는 과정이 있었다.
+
+```json
+"_moduleAliases": {
+  "@src": "dist"
+},
+```
+
+이 구문 때문에 watch를 실행해도 @src를 src가 아니라 dist로 변환하여 검색한다. NODE_ENV로 분기하는 로직을 추가하고 싶은데 방법을 잘 모르겠다. ㅠㅠ
+
+```json
+"_moduleAliases": {
+  "@src": "src"
+},
+```
+
+결국 이렇게 고쳐놓고 yarn watch를 실행하여 개발중이다.
