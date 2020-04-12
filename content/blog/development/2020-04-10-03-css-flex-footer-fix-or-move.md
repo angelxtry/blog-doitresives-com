@@ -4,6 +4,8 @@ date: 2020-04-11 01:04:37
 category: development
 ---
 
+[인프런의 CSS Flex와 Grid 제대로 익히기](https://www.inflearn.com/course/css-flex-grid-%EC%A0%9C%EB%8C%80%EB%A1%9C-%EC%9D%B5%ED%9E%88%EA%B8%B0/)를 보고 작성한 글입니다.
+
 2가지 유형을 만들텐데, 차이점은 footer가 고정인가, 움직이는가 차이다.
 
 ```html
