@@ -1,5 +1,5 @@
 ---
-title: "CRA 없이 React + TypeScript + Webpack 프로젝트 만들기"
+title: "CRA 없이 React + TypeScript + Webpack 프로젝트 만들기 #1"
 date: 2020-05-08 01:05:62
 category: development
 ---
