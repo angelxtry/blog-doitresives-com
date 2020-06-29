@@ -1082,6 +1082,8 @@ export const SignUpModal = () => {
 
 src/index.js 파일에 SignUpModal을 추가한다.
 
+Modal을 컨트롤 할 수 있도록 useState를 추가하고 SignUpModal에 props로 전달한다.
+
 ```js
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
@@ -1091,6 +1093,8 @@ import { GlobalStyle, defaultTheme, darkTheme } from './utils';
 
 const App = () => {
   const [useDarkTheme, setUseDarkTheme] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+
   return (
     <ThemeProvider theme={useDarkTheme ? darkTheme : defaultTheme}>
       <button
@@ -1105,6 +1109,12 @@ const App = () => {
       >
         Default Theme
       </button>
+      <button
+        style={{ margin: '0 16px 14px', padding: '8px', background: 'none' }}
+        onClick={() => setShowModal(!showModal)}
+      >
+        Toggle Modal
+      </button>
       <div
         style={{
           background: useDarkTheme
@@ -1117,7 +1127,7 @@ const App = () => {
           justifyContent: 'space-around',
         }}
       >
-        <SignUpModal />
+        <SignUpModal showModal={showModal} setShowModal={setShowModal} />
         <GlobalStyle />
       </div>
     </ThemeProvider>
@@ -1125,6 +1135,88 @@ const App = () => {
 };
 
 ReactDOM.render(<App />, document.querySelector('#root'));
+```
+
+#### Modal에 animation 추가
+
+react-spring 을 설치한다.
+
+```cmd
+yarn add react-spring
+```
+
+Modal에 animation을 추가한다.
+
+```jsx
+import React from 'react';
+import styled from 'styled-components';
+import { useSpring, animated, config } from 'react-spring';
+import { typeScale } from '../utils';
+import { Illustrations, CloseIcon } from '../assets';
+import { PrimaryButton } from './Buttons';
+
+const ModalWrapper = styled.div`
+  width: 800px;
+  height: 600px;
+  box-shadow: 0 5px 16px rgba(0, 0, 0, 0.2);
+  background-color: ${(props) => props.theme.formElementBackground};
+  color: ${(props) => props.theme.textOnFormElementBackground};
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  border-radius: 2px;
+`;
+
+const SignUpHeader = styled.h3`
+  font-size: ${typeScale.h3};
+  max-width: 70%;
+  text-align: center;
+`;
+
+const SignUpText = styled.p`
+  font-size: ${typeScale.paragraph};
+  max-width: 70%;
+  text-align: center;
+`;
+
+const CloseModalButton = styled.button`
+  cursor: pointer;
+  background: none;
+  border: none;
+  position: absolute;
+  top: 40px;
+  right: 40px;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+`;
+
+export const SignUpModal = ({ showModal, setShowModal }) => {
+  const animation = useSpring({
+    opacity: showModal ? 1 : 0,
+    transform: showModal ? 'translateY(0)' : 'translateY(-200%)',
+    config: config.slow,
+  });
+  return (
+    <animated.div style={animation}>
+      <ModalWrapper>
+        <img
+          src={Illustrations.SignUp}
+          alt="Sign up for an account"
+          aria-hidden="true"
+        />
+        <SignUpHeader>Sign Up</SignUpHeader>
+        <SignUpText>Sign up today to get access!</SignUpText>
+        <PrimaryButton>Sign Up!</PrimaryButton>
+        <CloseModalButton aria-label="Close modal">
+          <CloseIcon />
+        </CloseModalButton>
+      </ModalWrapper>
+    </animated.div>
+  );
+};
 ```
 
 ### 배운 점, 느낀 점
