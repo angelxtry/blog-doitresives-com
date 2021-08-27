@@ -70,3 +70,6 @@ yarn-error.log
 
 ## script
 aws-deploy.sh
+
+## ide
+.idea
