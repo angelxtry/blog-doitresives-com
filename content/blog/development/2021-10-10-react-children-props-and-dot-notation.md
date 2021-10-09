@@ -1,5 +1,5 @@
 ---
-title: 2021-10-10-react-children-props-and-dot-notation
+title: 2021-10-10  React children props 유연하게 사용하기 (with Dot notation, WithChildren type)
 date: 2021-10-10 02:10:75
 category: development
 ---
