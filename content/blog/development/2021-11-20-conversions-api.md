@@ -119,7 +119,8 @@ GTM을 통해 데이터를 수신하기 위한 클라이언트를 생성합니�
     - 픽셀 ID, API Access Token을 입력합니다.
     - Action Source: Website를 선택합니다.
 
-![SSGTM 트리거](https://drive.google.com/uc?export=view&id=1aPdCHj3okOLZLBc4tBkA_ShFdlDifNYP)
+![SSGTM 트리거 ](https://drive.google.com/uc?export=view&id=1aPdCHj3okOLZLBc4tBkA_ShFdlDifNYP)
+
 - 트리거
   - 하단의 트리거를 클릭합니다.
   - 트리거 선택 창에서 `+`를 클릭합니다.
@@ -140,6 +141,10 @@ GTM을 통해 데이터를 수신하기 위한 클라이언트를 생성합니�
 - 하나는 페이스북 픽셀을 실행하는 태그고, 다른 하나는 Conversions API를 호출하는 태그입니다.
 
 ### 1. 중복 제거를 위해 Event Id 추가
+
+![GTM Event Id 생성 1](https://drive.google.com/uc?export=view&id=1tYf1CkRbbj5FeG5D9PCr1WbuG7RyPCyu)
+
+![GTM Event Id 생성 2](https://drive.google.com/uc?export=view&id=1-RW9NId1YNC7HQ-N4i37Ex-fWvs2OU-A)
 
 GTM에서 동작하는 픽셀과 Conversions API가 동일한 요청이라는 것을 페이스북에 알려주기 위해 Event Id라는 변수를 사용합니다.
 
